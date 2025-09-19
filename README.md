@@ -74,15 +74,13 @@ This design replaces **static heuristics** with **dynamic optimization**, ensuri
 
 ## Parameters
 
-- \( p_c \): Priority score of case \(c\)  
-- \( d_c \): Duration of case \(c\) (in slots)  
-- \( a_{jc} \): Judge \(j\) authorized for case \(c\) (binary)  
+- $p_c$: Priority score of case $c$  
+- $d_c$: Duration of case $c$ (in slots)  
+- $a_{jc}$: Judge $j$ authorized for case $c$ (binary)  
 
 ## Decision Variable
 
-- \( x_{cjt} \in \{0,1\} \): 1 if case \(c\) is assigned to judge \(j\) at time \(t\), else 0  
-
----
+- $x_{cjt} \in \{0,1\}$: 1 if case $c$ is assigned to judge $j$ at time $t$, else 0  
 
 ---
 
