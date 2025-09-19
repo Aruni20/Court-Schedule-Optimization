@@ -28,7 +28,7 @@ This design replaces **static heuristics** with **dynamic optimization**, ensuri
 ### Flawed Assumptions in Traditional Systems  
 - A central database is always up-to-date.  
 - Events (filings, transfers) can be handled linearly.  
-- Schedules can be built with simple heuristics (FIFO).  
+- Schedules can be built with simple heuristics.  
 
 ### Reality  
 - No **single source of truth** for events.  
@@ -67,6 +67,7 @@ This design replaces **static heuristics** with **dynamic optimization**, ensuri
 ---
 ## Mathematical Formulation
 
+
 **Sets:**
 - \( C \): Pending cases  
 - \( J \): Judges  
@@ -79,6 +80,8 @@ This design replaces **static heuristics** with **dynamic optimization**, ensuri
 
 **Decision Variable:**
 - \( x_{cjt} \in \{0,1\} \): 1 if case \(c\) is assigned to judge \(j\) at time \(t\), else 0  
+
+---
 
 ---
 
