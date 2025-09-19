@@ -39,9 +39,31 @@ This design replaces **static heuristics** with **dynamic optimization**, ensuri
 **Our Solution:** Event-driven data + MILP optimization.
 ---
 **System Architecture:** 
+## System Architecture
+
+![Fair Court Scheduling Architecture](images/architecture.png)
+
+### Description
+
+The architecture is divided into two layers:
+
+1. **Nayaya Stream (Operational ETL & Batch Optimization)**  
+   - **FAKER** generates synthetic case data.  
+   - Data flows through **Kafka** (message bus) into the **Real-Time Scoring Consumer**, which ingests, scores, and stores cases.  
+   - Results are updated into the **MySSOL database**, which maintains pending cases.  
+   - A **nightly trigger** schedules cases based on scoring and optimization.  
+
+2. **NitiView (Analytical ELT & Monitoring, Weekly)**  
+   - Historical and batch data are stored in **MinIO (Data Lake)**.  
+   - An **Analytics Engine** performs ETL (Extract, Load, Transform) for weekly insights.  
+   - Results are visualized in the **Streamlit Dashboard**, providing interactive monitoring and reports.  
+
+This hybrid design ensures that **Nayaya Stream handles real-time case scheduling** while **NitiView provides long-term analytical monitoring**, enabling fair and efficient court scheduling.
+
 ---
+
 <img width="565" height="555" alt="Image" src="https://github.com/user-attachments/assets/97bd66c0-64cd-4dfe-8ba3-9329efdc0207" />
----
+
 
 ## Core Components & Mathematical Formulation  
 
