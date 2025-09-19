@@ -39,11 +39,7 @@ This design replaces **static heuristics** with **dynamic optimization**, ensuri
 **Our Solution:** Event-driven data + MILP optimization.
 ---
 **System Architecture:** 
-## System Architecture
 
-![Fair Court Scheduling Architecture](images/architecture.png)
-
-### Description
 
 The architecture is divided into two layers:
 
