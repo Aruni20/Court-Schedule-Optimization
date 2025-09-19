@@ -1,4 +1,3 @@
-# Court-Schedule-Optimization
 # Automated Court Scheduling & Optimization: A Real-Time, MILP-Driven Pipeline to Combat Case Backlog  
 **Solving the Timely Justice Paradox with Event-Driven Data and Mathematical Optimization**
 
