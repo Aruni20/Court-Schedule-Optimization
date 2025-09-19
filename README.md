@@ -65,63 +65,79 @@ This design replaces **static heuristics** with **dynamic optimization**, ensuri
 - Exports optimized schedule to **MinIO** for operational use.  
 
 ---
+## Mathematical Formulation
 
-### MILP Formulation  
-
-**Sets:**  
+**Sets:**
 - \( C \): Pending cases  
 - \( J \): Judges  
 - \( T \): Time slots  
 
-**Parameters:**  
+**Parameters:**
 - \( p_c \): Priority score of case \(c\)  
 - \( d_c \): Duration of case \(c\) (in slots)  
 - \( a_{jc} \): Judge \(j\) authorized for case \(c\) (binary)  
 
-**Decision Variable:**  
+**Decision Variable:**
 - \( x_{cjt} \in \{0,1\} \): 1 if case \(c\) is assigned to judge \(j\) at time \(t\), else 0  
-
-**Objective Function:**  
-\[
-\text{Maximize } Z = \sum_{c \in C} \sum_{j \in J} \sum_{t \in T} p_c \cdot x_{cjt}
-\]  
-
-**Constraints:**  
-1. **Each case scheduled at most once:**  
-\[
-\sum_{j \in J} \sum_{t \in T} x_{cjt} \leq 1 \quad \forall c \in C
-\]  
-
-2. **Judge handles one case per slot:**  
-\[
-\sum_{c \in C} x_{cjt} \leq 1 \quad \forall j \in J, \forall t \in T
-\]  
-
-3. **Case duration fits within slot:**  
-\[
-d_c \cdot x_{cjt} \leq 1 \quad \forall c \in C, \forall j \in J, \forall t \in T
-\]  
-
-4. **Judge-case authorization:**  
-\[
-x_{cjt} \leq a_{jc} \quad \forall c \in C, \forall j \in J, \forall t \in T
-\]  
 
 ---
 
-## Architecture Overview  
+### Objective Function
+Maximize the total weighted priority of scheduled cases:
 
-```mermaid
-graph TD
-    subgraph Real-Time ETL Pipeline
-        A[Faker Data Generator] -- events --> B(Kafka Producer)
-        B -- events --> C(Kafka Topic)
-        C -- events --> D{Kafka Consumer<br/>- Priority Scoring}
-        D -- database updates --> E[MySQL Database<br/>- Single Source of Truth]
-    end
+$$
+\text{Maximize } Z = \sum_{c \in C} \sum_{j \in J} \sum_{t \in T} p_c \cdot x_{cjt}
+$$
 
-    subgraph Batch ELT Pipeline
-        F(Airflow DAG<br/>- Nightly Trigger) -- run script --> G[Python Script<br/>- MILP Solver]
-        G -- read data --> E
-        G -- write schedule --> H(MinIO<br/>- Definitive Schedule)
-    end
+---
+
+### Constraints
+
+1. **Each case scheduled at most once:**
+
+$$
+\sum_{j \in J} \sum_{t \in T} x_{cjt} \leq 1 \quad \forall c \in C
+$$
+
+2. **Judge handles only one case per slot:**
+
+$$
+\sum_{c \in C} x_{cjt} \leq 1 \quad \forall j \in J, \forall t \in T
+$$
+
+3. **Case duration fits within slot:**
+
+$$
+d_c \cdot x_{cjt} \leq 1 \quad \forall c \in C, \forall j \in J, \forall t \in T
+$$
+
+4. **Judge-case authorization:**
+
+$$
+x_{cjt} \leq a_{jc} \quad \forall c \in C, \forall j \in J, \forall t \in T
+$$
+
+---
+
+## Expected Results & Impact  
+
+| Metric              | Current System (Heuristics) | Our Solution (MILP) | Expected Improvement |
+|----------------------|------------------------------|----------------------|-----------------------|
+| Schedule Efficiency | Sub-optimal                 | Optimal              | Drastic increase in cases heard per judge |
+| Backlog Reduction   | Stagnant                    | Accelerated          | >20% reduction per year possible |
+| Data Freshness      | Stale                       | Real-Time            | Always up-to-date schedules |
+| Fairness            | Heuristic-driven            | Optimized variables  | Fairness constraints integrated |
+
+---
+
+## Operational Impact
+- Judges, clerks, and lawyers receive **fair, predictable, real-time schedules**.  
+
+## Analytical Impact
+- Policy analysts can **audit efficiency**, backlog reduction, and fairness outcomes.  
+
+---
+
+## Keywords
+Mixed-Integer Linear Programming (MILP), Real-Time Data Pipeline, Event-Driven Architecture, Judicial Reform, Resource Optimization, Apache Airflow, Apache Kafka, Data Engineering, Case Backlog
+
