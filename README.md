@@ -38,6 +38,8 @@ This design replaces **static heuristics** with **dynamic optimization**, ensuri
 
 **Our Solution:** Event-driven data + MILP optimization.
 
+**System Architecture:** 
+<img width="565" height="555" alt="Image" src="https://github.com/user-attachments/assets/97bd66c0-64cd-4dfe-8ba3-9329efdc0207" />
 ---
 
 ## Core Components & Mathematical Formulation  
