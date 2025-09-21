@@ -1,0 +1,64 @@
+# --------------------
+# Python-specific files
+# --------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+.tox/
+.poetry/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+
+# --------------------
+# Docker-specific files
+# --------------------
+# Ignore Docker secrets
+.env
+.env.*
+
+# --------------------
+# IDE and Editor files
+# --------------------
+.idea/                 # JetBrains IDEs (PyCharm, IntelliJ)
+.vscode/               # VS Code
+*.iml                  # IntelliJ project files
+*.swp                  # Vim temporary files
+*~                     # Vim backup files
+.DS_Store              # macOS-specific files
+Thumbs.db              # Windows thumbnail cache
+
+# --------------------
+# Data and Artifacts
+# --------------------
+# Ignore raw and processed data files
+data/
+output/
+tmp/
+*.csv
+*.parquet
+*.json
+*.sql
+*.log
+
+# --------------------
+# Service-specific files
+# --------------------
+# Airflow
+dags/
+airflow/dags/data/
+airflow/dags/scripts/
+airflow/dags/batch_elt_dag.py
+airflow/dags/realtime_etl_dag.py
+
+# MySQL
+mysql/data/
+
+# MinIO
+minio_data/
